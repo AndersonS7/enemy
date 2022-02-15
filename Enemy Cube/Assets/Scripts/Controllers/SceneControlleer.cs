@@ -7,4 +7,8 @@ public class SceneControlleer : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+    public void Sair()
+    {
+        Application.Quit();
+    }
 }

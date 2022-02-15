@@ -4,73 +4,32 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject playerPrefab, enemyPrefab, enemyMidlePrefab, enemyHardPrefab, gemaPrefab;
+    public GameObject playerPrefab;
     public Transform posPplayer;
-    public List<GameObject> posEnemy;
 
-    private float time;
-    private float timeSurvival;
-    private float timeGema;
-    private int coutGema;
+    private float min, seg;
 
     // UI
     public GameObject menu;
-    public Text gema;
+    public Text minTxt, segTxt;
 
     void Start()
     {
-        time = 0;
-        timeSurvival = 0;
         menu.SetActive(false);
-
         // ----
         InstantiatePlayer();
     }
 
     void Update()
     {
-
-        addGema();
-        // check player gameover
-        CheckGameOver();
-
-        //times
-        timeSurvival += Time.deltaTime;
-        time += Time.deltaTime;
-        timeGema += Time.deltaTime;
-
-        // enemy instantiate
-        if (time >= 1 && !DeathPlayer.gameOver)
-        {
-            InstantiateEnemy(enemyPrefab); //enemy comum
-            if (timeSurvival >= 8)
-            {
-                InstantiateEnemy(enemyMidlePrefab);
-            }
-            if (timeSurvival >= 10)
-            {
-                InstantiateEnemy(enemyHardPrefab);
-            }
-            time = 0;
-        }
-
-        // gema instantiate
-        if (timeGema >= 2)
-        {
-            InstantiateGema();
-            timeGema = 0;
-        }
+        CheckGameOver(); // check player gameover
+        Conometer();
     }
 
     // ----
     void InstantiatePlayer()
     {
         Instantiate(playerPrefab, posPplayer.transform.position, playerPrefab.transform.rotation);
-    }
-    void InstantiateEnemy(GameObject enemy)
-    {
-        int drawPos = Random.Range(0, 8);
-        Instantiate(enemy, posEnemy[drawPos].transform.position, enemyPrefab.transform.rotation);
     }
     void CheckGameOver()
     {
@@ -79,20 +38,15 @@ public class GameController : MonoBehaviour
             menu.SetActive(true);
         }
     }
-    void addGema()
+    void Conometer()
     {
-        if (MovePlayer.isCollider)
+        seg += Time.deltaTime;
+        if (seg > 59)
         {
-            coutGema += 1;
-            gema.text = coutGema.ToString();
-            MovePlayer.isCollider = false;
+            min += 1;
+            seg = 0;
         }
-    }
-    void InstantiateGema()
-    {
-        float posX = Random.Range(-7, 7);
-        float posY = Random.Range(-4, 4);
-        Vector3 posGema = new Vector3(posX, posY, 0);
-        Instantiate(gemaPrefab, posGema, gemaPrefab.transform.rotation);
+        segTxt.text = seg.ToString("00");
+        minTxt.text = min.ToString("00");
     }
 }
