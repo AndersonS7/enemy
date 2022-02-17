@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public Transform posPplayer;
 
     private float min, seg;
+    public static float minStatic;
 
     // UI
     public GameObject menu;
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        min = 1;
         menu.SetActive(false);
         // ----
         InstantiatePlayer();
@@ -48,5 +50,6 @@ public class GameController : MonoBehaviour
         }
         segTxt.text = seg.ToString("00");
         minTxt.text = min.ToString("00");
+        minStatic = min; // minuto que é usado no script <Enemy> controla os inimigos que aparecem
     }
 }

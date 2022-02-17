@@ -9,7 +9,7 @@ public class MovePlayer : MonoBehaviour
 
     void Start()
     {
-        speed = 3.5f;
+        speed = 4;
     }
     // Update is called once per frame
     void FixedUpdate()
