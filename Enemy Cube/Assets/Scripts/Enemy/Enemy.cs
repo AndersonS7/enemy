@@ -13,22 +13,6 @@ public class Enemy : MonoBehaviour
         editColorEnemy = GetComponent<SpriteRenderer>();
     }
 
-
-    void FixedUpdate()
-    {
-        //---
-        //FollowPlayBasic(3, Color.red);
-
-        if (GameController.minStatic >= 1)
-        {
-            FollowPlayBasic(3.5f, Color.yellow);
-        }
-        if (GameController.minStatic >= 1)
-        {
-            FollowPlayerHard(2.5f, Color.black);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D coll)
     {
         ControllerCollision(coll.gameObject);

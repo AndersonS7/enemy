@@ -27,7 +27,6 @@ public class GenerateEnemy : MonoBehaviour
 
     void GenerateEnemyAtPoint()
     {
-        
         Instantiate(enemyPrefab, pointEnemy[Random.Range(0, 8)].position, transform.rotation);
     }
 }
